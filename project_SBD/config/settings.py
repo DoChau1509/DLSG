@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'project_SBD.home',
+    'project_SBD.home.apps.MyappConfig',
 
 ]
 
