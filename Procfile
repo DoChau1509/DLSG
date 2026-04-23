@@ -1,0 +1,1 @@
+web: gunicorn project_SBD.config.wsgi:application

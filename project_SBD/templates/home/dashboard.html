@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="dashboard">
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="dashboard-header">
+            <h2>Quản lý dự án</h2>
+            <a href="{% url 'project_add' %}" class="btn-primary">+ Thêm dự án</a>
+        </div>
+
+        <!-- NAV ACTIONS -->
+        <div class="dashboard-actions">
+            <a href="{% url 'dashboard' %}" class="action-btn active">Dự án</a>
+            <a href="{% url 'home_content_edit' %}" class="action-btn">Giới thiệu home</a>
+            <a href="{% url 'project_category_list' %}" class="action-btn">Danh mục dự án</a>
+            <a href="{% url 'product_list' %}" class="action-btn">Sản phẩm</a>
+            <a href="{% url 'product_category_list' %}" class="action-btn">Danh mục sản phẩm</a>
+            <a href="{% url 'post_list' %}" class="action-btn">Bài viết</a>
+            <a href="{% url 'post_category_list' %}" class="action-btn">Danh mục bài viết</a>
+        </div>
+
+        <!-- TABLE -->
+        <div class="table-wrapper">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Ảnh</th>
+                        <th>Tên</th>
+                        <th>Danh mục</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for p in projects %}
+                    <tr>
+                        <td>
+                            {% if p.image %}
+                                <img src="{{ p.image.url }}" class="table-img">
+                            {% else %}
+                                <span class="no-img">Chưa có</span>
+                            {% endif %}
+                        </td>
+
+                        <td>{{ p.name }}</td>
+                        <td>{{ p.category.name }}</td>
+
+                        <td>
+                            <a href="{% url 'project_edit' p.id %}" class="btn-edit">Sửa</a>
+                            <a href="{% url 'project_delete' p.id %}" class="btn-delete">Xóa</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">Chưa có dự án</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

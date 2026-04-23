@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container" style="margin-top:100px;">
+    <h2>Quản lý câu hỏi</h2>
+
+    <div class="d-flex flex-wrap gap-2 mb-3">
+        <a href="{% url 'post_add' %}" class="btn btn-success">+ Thêm bài viết</a>
+        <a href="{% url 'post_list' %}" class="action-btn">Các địa điểm</a>
+        <a href="{% url 'home_content_edit' %}" class="action-btn">Giới thiệu home</a>
+        <a href="{% url 'qna_list' %}" class="btn btn-outline">QnA</a>
+    </div>
+
+    <table class="table table-bordered align-middle">
+        <tr>
+            <th>Câu hỏi</th>
+            <th>Câu trả lời</th>
+            <th>Ngày tạo</th>
+            <th style="width:180px;">Action</th>
+        </tr>
+
+        {% for q in qnas %}
+        <tr>
+            <td>
+                {{ q.question }}
+            </td>
+            <td>{{ q.answer }}</td>
+            <td>{{ q.created_at|date:"d/m/Y" }}</td>
+            <td>
+                <a href="{% url 'qna_edit' q.id %}" class="btn btn-warning btn-sm">Sửa</a>
+                <a href="{% url 'qna_delete' q.id %}" class="btn btn-danger btn-sm">Xóa</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" class="text-center text-muted">Chưa có câu hỏi nào.</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="{% url 'home' %}" class="btn btn-secondary">Quay lại</a>
+
+</div>
+
+{% endblock %}

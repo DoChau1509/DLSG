@@ -1,0 +1,278 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+	.detail-wrap {
+		padding: 90px 0;
+		background: var(--primary);
+	}
+
+	/* CARD */
+	.detail-card {
+		background: var(--card);
+		border-radius: 16px;
+		overflow: hidden;
+		border: 1px solid rgba(255,255,255,0.05);
+	}
+
+	/* HERO IMAGE */
+	.detail-hero {
+		height: 420px;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.detail-hero img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: 0.5s;
+	}
+
+	/* zoom nhẹ */
+	.detail-card:hover .detail-hero img {
+		transform: scale(1.05);
+	}
+
+	/* overlay gradient */
+	.detail-hero::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+	}
+
+	/* fallback */
+	.detail-hero .fallback {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--text-muted);
+		background: var(--card);
+	}
+
+	.detail-hero .fallback i {
+		font-size: 60px;
+	}
+
+	/* BODY */
+	.detail-body {
+		padding: 30px;
+	}
+
+	/* CATEGORY */
+	.badge-cat {
+		display: inline-block;
+		background: rgba(242,166,90,0.15);
+		color: var(--accent);
+		padding: 6px 14px;
+		border-radius: 999px;
+		font-size: 11px;
+		font-weight: 700;
+		letter-spacing: 1px;
+		margin-bottom: 12px;
+	}
+
+	/* TITLE */
+	.detail-title {
+		font-size: 30px;
+		color: var(--text);
+		margin-bottom: 10px;
+	}
+
+	/* SUMMARY */
+	.detail-summary {
+		font-size: 15px;
+		color: var(--text-muted);
+		line-height: 1.8;
+		margin-bottom: 18px;
+	}
+
+	/* META */
+	.detail-meta {
+		color: var(--text-muted);
+		font-size: 13px;
+		margin-bottom: 20px;
+	}
+
+	/* CONTENT */
+	.detail-desc {
+		color: var(--text);
+		line-height: 1.9;
+		font-size: 15px;
+	}
+
+	/* BUTTONS */
+	.detail-body .btn-secondary {
+		background: transparent;
+		border: 1px solid var(--text-muted);
+		color: var(--text);
+	}
+
+	.detail-body .btn-secondary:hover {
+		background: var(--accent);
+		color: #1a1a1a;
+	}
+
+	/* MOBILE */
+	@media (max-width: 768px) {
+		.detail-hero {
+			height: 250px;
+		}
+
+		.detail-title {
+			font-size: 22px;
+		}
+
+		.detail-body {
+			padding: 20px;
+		}
+	}
+
+	/* HEADER */
+	.detail-header {
+		margin-bottom: 20px;
+	}
+
+	/* TITLE */
+	.detail-title {
+		font-size: 32px;
+		font-weight: 700;
+		line-height: 1.4;
+		margin: 10px 0;
+	}
+
+	/* META */
+	.detail-meta {
+		font-size: 13px;
+		color: var(--text-muted);
+	}
+
+	/* SUMMARY */
+	.detail-summary {
+		font-size: 17px;
+		line-height: 1.8;
+		color: #cfd8d3;
+		padding: 15px 20px;
+		border-left: 3px solid var(--accent);
+		background: rgba(255,255,255,0.03);
+		border-radius: 8px;
+		margin: 25px 0;
+	}
+
+	/* CONTENT CHÍNH */
+	.detail-content {
+		font-size: 16px;
+		line-height: 1.9;
+		color: var(--text);
+	}
+
+	/* spacing đoạn */
+	.detail-content p {
+		margin-bottom: 18px;
+	}
+
+	/* tiêu đề trong bài */
+	.detail-content h2,
+	.detail-content h3 {
+		margin-top: 30px;
+		margin-bottom: 10px;
+		color: var(--accent);
+	}
+
+	/* ảnh trong content */
+	.detail-content img {
+		width: 100%;
+		border-radius: 12px;
+		margin: 20px 0;
+	}
+
+	/* blockquote */
+	.detail-content blockquote {
+		border-left: 4px solid var(--accent);
+		padding-left: 15px;
+		color: var(--text-muted);
+		margin: 20px 0;
+		font-style: italic;
+	}
+
+	/* ACTIONS */
+	.detail-actions {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 40px;
+	}
+
+	/* RESPONSIVE */
+	@media (max-width: 768px) {
+		.detail-title {
+			font-size: 24px;
+		}
+
+		.detail-summary {
+			font-size: 15px;
+		}
+	}
+</style>
+
+{% comment %} <section class="section-top">
+	<div class="container">
+		<div class="col-lg-10 offset-lg-1 col-xs-12 text-center">
+			<div class="section-top-title wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.3s">
+				<h1>Chi Tiết Bài Viết</h1>
+				<p>{{ post.title }}</p>
+				<div class="breadcrumb-nav">
+					<a href="{% url 'home' %}">Trang Chủ</a>
+					<span>/</span>
+					<a href="{% url 'post' %}">Bài Viết</a>
+					<span>/</span>
+					<strong>Chi tiết</strong>
+				</div>
+			</div>
+		</div>
+	</div>
+</section> {% endcomment %}
+
+<section class="detail-wrap">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-10">
+				<div class="detail-card">
+					<div class="detail-hero">
+						{% if post.image %}
+							<img src="{{ post.image.url }}" alt="{{ post.title }}">
+						{% else %}
+							<div class="fallback" aria-hidden="true"><i class="fa fa-newspaper-o"></i></div>
+						{% endif %}
+					</div>
+						<div class="detail-body">
+
+							<div class="detail-header">
+								<h1 class="detail-title">{{ post.title }}</h1>
+							</div>
+
+							{% if post.summary %}
+							<div class="detail-summary">
+								{{ post.summary }}
+							</div>
+							{% endif %}
+
+							<div class="detail-content">
+								{{ post.content|linebreaks }}
+							</div>
+
+							<div class="detail-actions">
+								<a href="{% url 'home' %}" class="btn btn-secondary">← Quay lại</a>
+								<a href="{% url 'contact' %}" class="btn btn-primary">Liên hệ</a>
+							</div>
+
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endblock %}

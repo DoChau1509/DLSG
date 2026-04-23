@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="hero">
+    <div class="hero-content container">
+		<h1>Lộ trình khám phá Sài Gòn và Bến Thành</h1>
+		<p>Trải nghiệm 1 ngày tại phường Sài Gòn và Bến Thành bằng phương tiện di chuyển xanh</p>
+		<a href="#overview" class="btn-primary">Khám phá lộ trình</a>
+    </div>
+</section>
+
+<section class="overview" id="overview"> 	
+  <div class="container">
+    <h2 class="section-title" style="text-align:center;">{{ home_content.intro_title }}</h2>
+    <p>
+      {{ home_content.intro_description|linebreaksbr }}
+    </p>
+  </div>
+</section>
+
+<section class="highlights">
+  <div class="container grid">
+    <div class="card">
+      <h3>Thời gian</h3>
+      <p>6:00 – 19:00</p>
+    </div>
+
+    <div class="card">
+      <h3>Quãng đường</h3>
+      <p>6–8 km</p>
+    </div>
+
+    <div class="card">
+      <h3>Chi phí</h3>
+      <p>Dưới 400.000 VNĐ</p>
+    </div>
+
+    <div class="card">
+      <h3>Phương tiện</h3>
+      <p>Đi bộ, xe đạp, metro, xe buýt điện</p>
+    </div>
+  </div>
+</section>
+
+<section class="purpose">
+  <div class="container">
+    <h2 style="text-align:center;">Mục tiêu và Giá trị</h2>
+    <p>
+		Lộ trình được xây dựng nhằm mang đến một trải nghiệm du lịch trong ngày phù hợp với 
+		điều kiện thực tế, đặc biệt là tối ưu chi phí di chuyển trong bối cảnh giá nhiên liệu gia tăng. 
+		Thông qua việc kết nối các điểm đến quen thuộc trong khu vực trung tâm và ưu tiên các phương tiện di 
+		chuyển xanh, hành trình mở ra một cách khám phá thành phố thuận tiện, linh hoạt và thân thiện với 
+		môi trường, đồng thời vẫn đảm bảo sự đa dạng về trải nghiệm văn hóa, ẩm thực và đời sống đô thị.
+	</p>
+
+    <h2 style="text-align:center;">Đối tượng phù hợp</h2>
+    <p>
+		Lộ trình hướng đến người dân sinh sống tại Thành phố Hồ Chí Minh và các khu vực 
+		lân cận, đặc biệt là học sinh, sinh viên và người trẻ có nhu cầu du lịch 
+		ngắn ngày, phù hợp với thời gian và điều kiện tài chính. Với cách tổ chức đơn giản, dễ thực hiện 
+		và gần gũi, hành trình trở thành một lựa chọn phù hợp cho những ai muốn khám phá thành phố 
+		theo cách nhẹ nhàng hơn, tiết kiệm hơn nhưng vẫn trọn vẹn trải nghiệm.
+	</p>
+  </div>
+</section>
+
+<section class="posts-section" id="posts">
+	<div class="container">
+		<div class="section-title text-center wow zoomIn">
+			<h2>Các điểm đến nổi bật</h2>
+		</div>
+
+		<div class="row" id="posts-grid">
+			{% for p in posts %}
+				<div class="col-12 mb-4 mix wow fadeInUp">
+					<a href="{% url 'post_detail' p.id %}" style="text-decoration:none;color:inherit;">
+                        <div class="post-card">
+                            <div class="post-thumb">
+                                {% if p.image %}
+                                    <img src="{{ p.image.url }}" alt="{{ p.title }}" >
+                                {% endif %}
+                            </div>
+
+                            <div class="post-body">
+                                <h3 class="post-title">{{ p.title }}</h3>
+                                <p class="post-summary">
+                                    {{ p.summary|default:p.content|truncatechars:130 }}
+                                </p>
+                            </div>
+                        </div>
+					</a>
+				</div>
+			{% empty %}
+				<div class="col-12">
+					<div class="text-center" style="padding:40px 0;">Chưa có bài viết nào.</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+
+<section class="video-section">
+    <div class="container">
+        <h2>Khám phá qua video</h2>
+
+    <div class="video-wrapper">
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=Oo_A84zBWdjNN2k2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <div id="fallback" style="display:none; text-align:center;">
+            <p>Không xem được video 😢</p>
+            <a href="https://youtu.be/Scxs7L0vhZ4" target="_blank">
+                Xem trên YouTube
+            </a>
+        </div>
+    </div>
+    </div>
+</section>
+
+<section class="tips-section">
+    <div class="container">
+        <h2 style="text-align:center;">Lưu ý thực tế khi tham gia lộ trình</h2>
+
+        <ul>
+            <li><strong>Thời tiết:</strong> Nên chọn ngày nắng nhẹ hoặc râm mát để trải nghiệm tốt nhất. Tránh những ngày mưa lớn vì phần lớn hoạt động diễn ra ngoài trời. Hãy kiểm tra dự báo thời tiết trước 1–2 ngày.</li>
+            <li><strong>Ăn uống:</strong> Có thể dùng bữa nhẹ tại Chợ Bến Thành với các món đặc sản đường phố. Khải Phát Mì Gia là gợi ý ngon và tiết kiệm cho bữa trưa hoặc tối. Nên mang theo nước uống cá nhân.</li>
+            <li><strong>Thời gian tham quan:</strong> Buổi sáng sớm (trước 9h) hoặc chiều muộn (sau 15h) thường ít đông đúc hơn, rất phù hợp để chụp ảnh và di chuyển thoải mái.</li>
+            <li><strong>Chuẩn bị cá nhân:</strong> Mang giày thể thao thoải mái, kem chống nắng, mũ nón, khăn giấy và sạc dự phòng. Tải sẵn ứng dụng TNGo-HCM, HCMCMetroHURC và MultiGo. Chuẩn bị một ít tiền mặt để tiện mua đồ ăn vặt.</li>
+            <li><strong>An toàn và bền vững:</strong> Giữ gìn vệ sinh môi trường, không xả rác bừa bãi và tôn trọng các di sản. Sử dụng phương tiện xanh sẽ góp phần giảm khí thải, bảo vệ không gian chung. Tuân thủ quy tắc giao thông và đỗ xe đúng trạm.</li>
+        </ul>
+
+        <p>
+            Lộ trình du lịch xanh Phường Sài Gòn – Phường Bến Thành không chỉ là một hành trình di chuyển từ điểm này sang điểm khác, 
+            mà còn là cơ hội để mỗi người tham gia cảm nhận rõ ràng hơn giá trị của di chuyển bền vững, trân trọng không gian công cộng 
+            và nuôi dưỡng tình yêu sâu sắc dành cho thành phố Sài Gòn. 
+        </p>
+		<p>
+			Bạn hoàn toàn có thể bắt đầu lộ trình từ bất kỳ điểm nào tùy theo sở thích 
+            và lịch trình cá nhân. Thông tin chi tiết hơn về từng điểm đến, bản đồ hướng dẫn, vị trí trạm TNGo và các sự kiện cập nhật 
+            sẽ được cung cấp trong các phần tiếp theo của website. 
+			Chúc bạn có một ngày trải nghiệm Sài Gòn thật ý nghĩa, xanh sạch và đáng nhớ!
+		</p>
+		<p>
+			Chúc bạn có một ngày trải nghiệm Sài Gòn thật ý nghĩa, xanh sạch và đáng nhớ!
+		</p>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Travel Explorer</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Animate.css cho WOW.js (v3 để dùng class fadeInRight, fadeInUp, ...) -->
+    <link rel="stylesheet" href="{% static 'vendor/animate/animate.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<header class="site-navbar">
+    <div class="container nav-wrapper">
+
+        <!-- Logo -->
+        <div class="site-logo">
+            <a href="{% url 'home' %}">🌿 Travel Explorer</a>
+        </div>
+
+        <!-- Menu -->
+        <nav class="menu" id="menu">
+            <a href="{% url 'home' %}" class="nav-link">Trang Chủ</a>
+            <a href="{% url 'contact' %}" class="nav-link">Liên Hệ</a>
+        </nav> 
+
+        <!-- Login -->
+        <div class="nav-actions d-none d-xl-flex">
+            {% if user.is_authenticated %}
+                
+                {% if user.is_staff %}
+                    <a href="{% url 'post_list' %}" class="btn btn-outline">⚙ Quản lý</a>
+                {% endif %}
+
+                <span class="user-name">👋 {{ user.username }}</span>
+
+                <form method="post" action="{% url 'logout' %}" class="logout-form">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline">Đăng xuất</button>
+                </form>
+
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-primary">Đăng nhập</a>
+            {% endif %}
+        </div>
+
+        <!-- Hamburger -->
+        <div class="menu-toggle" onclick="toggleMenu()">
+            ☰
+        </div>
+
+    </div>
+</header>
+
+{% block content %}{% endblock %}
+
+<!-- FOOTER -->
+<footer class="footer">
+    <p>© 2026 Travel Explorer | Khám phá phường Sài Gòn và phường Bến Thành cùng bạn</p>
+</footer>
+
+<script>
+function toggleMenu() {
+    const menu = document.getElementById("menu");
+    menu.classList.toggle("active");
+}
+</script>
+
+</body>
+</html>

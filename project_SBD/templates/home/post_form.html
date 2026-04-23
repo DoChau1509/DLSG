@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container" style="margin-top:100px; max-width:700px;">
+
+    <h2>{% if post %}Sửa{% else %}Thêm{% endif %} Địa Điểm</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <input type="text" name="title"
+               value="{{ post.title|default:'' }}"
+               placeholder="Tên địa điểm"
+               class="form-control mb-2"
+               required>
+
+        <textarea name="summary"
+                  class="form-control mb-2"
+                  rows="3"
+                  placeholder="Địa chỉ">{{ post.summary|default:'' }}</textarea>
+
+        <textarea name="content"
+                  class="form-control mb-2"
+                  rows="10"
+                  placeholder="Giới thiệu"
+                  required>{{ post.content|default:'' }}</textarea>
+
+
+        <input type="file" name="image" class="form-control mb-2">
+
+        {% if post.image %}
+            <img src="{{ post.image.url }}" width="140" alt="{{ post.title }}">
+        {% endif %}
+
+        <div class="d-flex justify-content-between align-items-center mt-2">
+            <a href="{% url 'post_list' %}" class="btn btn-secondary">Quay lại</a>
+            <button class="btn btn-primary">Lưu</button>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}
